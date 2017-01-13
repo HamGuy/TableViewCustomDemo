@@ -10,10 +10,13 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var tableView:NSTableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
 
     override var representedObject: Any? {
@@ -21,7 +24,19 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
+}
 
+extension ViewController: NSTableViewDataSource{
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return 20
+    }
+}
 
+extension ViewController: NSTableViewDelegate{
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cellview = tableView.make(withIdentifier: "cell", owner: self) as? NSTableCellView
+        cellview?.textField?.stringValue = "Cell Index \(row)"
+        return cellview
+    }
 }
 
